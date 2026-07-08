@@ -1,4 +1,5 @@
 ------Introduction------
+
 This is the Soft IP Core for a vending machine, designed using an FPGA. The IP core supports three types of coins (10K, 20K, 50K) and three products (A, B, C) with configurable prices.
 1. Features
 - Supports three types of coins: 10K, 20K, 50K
