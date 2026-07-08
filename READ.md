@@ -1,17 +1,16 @@
-# Vending Machine Soft IP Core
-------Giới thiệu------
-Đây là Soft IP Core của máy bán hàng tự động (Vending Machine) được thiết kế trên FPGA. IP core hỗ trợ 3 loại xu (10K, 20K, 50K) và 3 sản phẩm (A, B, C) với giá có thể cấu hình.
-1.  Tính năng
-- Hỗ trợ 3 loại xu: 10K, 20K, 50K
-- Hỗ trợ 3 sản phẩm: A, B, C
-- Cấu hình giá sản phẩm qua tham số (Parameter)
-- Cấu hình thời gian timeout
-- Buzzer báo hiệu (1, 2, 3 beep)
-- Hiển thị số tiền trên LED 7 đoạn (74HC595)
-- 3 LED báo sản phẩm đã chọn
-- Thiết kế theo mô hình Moore FSM
+------Introduction------
+This is the Soft IP Core for a vending machine, designed using an FPGA. The IP core supports three types of coins (10K, 20K, 50K) and three products (A, B, C) with configurable prices.
+1. Features
+- Supports three types of coins: 10K, 20K, 50K
+- Supports three products: A, B, C
+- Configurable product prices via parameters
+- Configurable timeout
+- Buzzer signal (1, 2, 3 beeps)
+- Displays the amount on a 7-segment LED (74HC595)
+- Three LEDs indicate selected products
+- Designed using the Moore FSM model
 
- 2.  Kiến trúc hệ thống
+2. System Architecture
 
 ```mermaid
 flowchart TD
