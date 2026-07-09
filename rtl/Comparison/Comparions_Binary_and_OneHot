@@ -1,1 +1,43 @@
+# Binary vs One-hot Encoding Comparison
 
+## Research Question:
+**Does one-hot encoding run faster than binary encoding on FPGA?**
+
+## Experimental Results:
+
+| Resource       | Binary    | One-hot   | Difference |
+|----------------|-----------|-----------|------------|
+| **LUTs**       | 295       | 308       | +4.41%     |
+| **Flip-Flops** | 282       | 285       | +1.06%     |
+| **Fmax**       | 223.2 MHz | 222.8 MHz | -0.18%     |
+
+## Analysis:
+
+1. **Speed (Fmax):** Both encodings achieve nearly identical maximum 
+   frequencies (~223 MHz). One-hot does NOT provide a speed advantage 
+   in this design.
+
+2. **Resource Usage:** Binary encoding uses fewer resources:
+   - 13 fewer LUTs (295 vs 308)
+   - 3 fewer FFs (282 vs 285)
+
+3. **State Encoding:** Binary uses 3 bits while one-hot uses 6 bits, 
+   resulting in more FFs for one-hot.
+
+## Why One-hot is NOT Faster Here:
+
+| Factor                 | Explanation                                      |
+|------------------------|--------------------------------------------------|
+| Small state count      | Only 6 states → binary decoding is simple        |
+| Modern FPGA            | LUT-based logic is optimized for binary decoding |
+| No complex comparators | Simple case statement is efficient               |
+
+## Conclusion:
+
+**For this Vending Machine design:**
+- One-hot encoding does **NOT** provide a speed advantage
+- Binary encoding is **more resource-efficient**
+- Both designs exceed the 100 MHz requirement
+
+**Recommendation:** Use **Binary encoding** for small to medium FSM designs 
+(≤ 16 states) as it saves resources without sacrificing performance.
