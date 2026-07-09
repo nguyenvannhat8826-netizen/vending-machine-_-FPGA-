@@ -1,0 +1,54 @@
+ FSM Encoding Impact on FF and Timing
+
+# Research Question:
+--------How does FSM encoding affect FF count and timing?------------
+
+# Experimental Results:
+
+| Encoding            | State Bits | Total FFs | Fmax      | Logic Level |
+|---------------------|------------|-----------|-----------|-------------|
+| **Binary (Moore)**  | 3 bits     | 282       | 223.2 MHz | 8           |
+| **Binary (Mealy)**  | 3 bits     | 280       | 222.8 MHz | 8           |
+| **One-hot (Moore)** | 6 bits     | 285       | 222.8 MHz | 8           |
+---------------------------------------------------------------------
+# Analysis:
+
+1. Impact on FF Count:
+- Binary encoding uses  3 bits → 3 FFs for state
+- One-hot encoding uses 6 bits → 6 FFs for state
+- One-hot uses 3 more FFs for state encoding
+- Total FF difference: One-hot uses 3 more FFs (285 vs 282)
+
+2. Impact on Timing:
+- Binary : 223.2 MHz, Slack: 5.520 ns
+- One-hot: 222.8 MHz, Slack: 5.512 ns
+- Both exceed 100 MHz requirement
+- **No significant timing advantage** for one-hot
+
+3. Trade-offs:
+
+| Factor             | Binary            | One-hot          |
+|--------------------|-------------------|------------------|
+| FFs                | Fewer             | More             |
+| Speed              | Slightly faster   | Slightly slower  |
+| Decoding logic     | More complex      | Simpler          |
+| Resource           | More efficient    | Less efficient   |
+| Slack              | Better (5.520 ns) | Worse (5.512 ns) |
+--------------------------------------------------------------------------------
+## Why Binary is Better in this Design:
+
+| Reason                  | Explanation                                      |
+|-------------------------|--------------------------------------------------|
+| Small state count       | Only 6 states → binary decoding is simple        |
+| Modern FPGA LUTs        | LUT-based logic is optimized for binary encoding |
+| Fewer FFs               | 3 fewer FFs → less routing congestion            |
+| No timing advantage     | One-hot does NOT provide speed benefit           |
+
+## Conclusion:
+
+| Finding          | Result                                            |
+|------------------|---------------------------------------------------|
+| FF usage         | Binary uses fewer FFs                             |
+| Fmax             | Binary achieves higher Fmax                       |
+| Speed advantage  | One-hot does **NOT** provide speed advantage      |
+| Recommendation   | Use Binary encoding for designs with ≤ 16 states  |
