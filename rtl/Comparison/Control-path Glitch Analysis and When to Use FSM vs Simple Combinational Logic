@@ -1,0 +1,67 @@
+1.Control-path Glitch Analysis
+----Can control-path design cause glitches?----
+Answer: YES- Glitches can occur in Mealy FSM due to combinational output logic.
+a. Glitch Analysis:
+
+| FSM       | Output                             | Glitch?   | Reason               |
+|-----------|------------------------------------|-----------|----------------------|
+| Moore     | `buzzer = buzz_state` (from FF)    |  No       | Synchronous output   |
+| Mealy     | `buzzer = f(state, input)` (combo) |  Possible | Combinational output |
+
+b. Why Mealy Can Glitch:
+When `current_state` changes from BUZZER_ON (100) to INSERT_COIN (001), 
+bits may change at different times, creating temporary invalid states , causing glitch on output.
+
+c. Prevention Methods:
+1. Use " Moore FSM " instead of Mealy
+2. Add " output register "  (FF) after combinational logic
+3. Use " Gray code "  encoding
+4. Use " synchronous "  design practices
+
+d.  Recommendation:
+For this design, Moore FSM is recommended for **glitch-free** operation.
+
+------------------------------------------------------------------------------
+2.  When to Use FSM vs Simple Combinational Logic
+When should FSM be used instead of simple combinational logic?
+a.  Comparison:
+
+| Criteria              | FSM    | Combinational Logic |
+|-----------------------|--------|---------------------|
+| State memory          | Yes    | No                  |
+| Sequential processing | Yes    | No                  |
+| Speed                 | Slower | Faster              |
+| Resource              | More   | Less                |
+| Complexity            | Higher | Lower               |
+
+b. When to Use FSM:
+
+| Situation              | Example                    |
+|------------------------|----------------------------|
+| ≥ 3 states             | Vending Machine (6 states) |
+| Event ordering         | Coin → Select → Dispense   |
+| Need state memory      | "Has enough money?"        |
+| Sequential processing  | Step-by-step flow          |
+| User interaction       | User interface             |
+
+c.  When NOT to Use FSM:
+
+| Situation         | Example         |
+|-------------------|-----------------|
+| 1-2 states        | LED on/off      |
+| No state memory   | Simple addition |
+| Simple processing | AND/OR logic    |
+| High speed needed | Data path       |
+
+d. In This Design:
+
+| Component       | Uses FSM? | Reason                 |
+|-----------------|-----------|------------------------|
+| Vending Machine |  Yes      | 6 states, needs memory |
+| Buzzer driver   |  Yes      | Counts beeps           |
+| Debounce        |  No       | Simple filter          |
+| Display         |  No       | Simple output          |
+
+3.  Conclusion:
+Use FSM when the system has **multiple states, event ordering, and needs state memory**. 
+Use combinational logic for **simple, stateless operations**.
