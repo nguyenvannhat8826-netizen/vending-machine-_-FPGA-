@@ -130,11 +130,9 @@ module top_veding_machine #(
             current_state <= next_state;
         end
     end
-    
-    // MOORE_OUTPUT 
+
     assign buzzer = buzz_state;
 
-    // DATAPATH 
     always @(posedge clk) begin
         if (pulse_reset) begin
             money <= 0;
